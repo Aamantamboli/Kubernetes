@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: a-deployment
+  labels:
+    app: my-app
+    version: a
+spec:
+  replicas: 3   # 60% traffic (3 out of 5 total pods)
+  selector:
+    matchLabels:
+      app: my-app
+      version: a
+  template:
+    metadata:
+      labels:
+        app: my-app
+        version: a
+    spec:
+      containers:
+      - name: my-app
+        image: nginx:latest  # Version A image
+        ports:
+        - containerPort: 80

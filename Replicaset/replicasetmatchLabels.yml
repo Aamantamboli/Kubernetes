@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+      name: webreplica4
+      labels: 
+          app: webreplica4
+spec: 
+  replicas: 2
+  template: 
+        metadata: 
+            name: webreplica4
+            labels:
+              app: webreplica4
+        spec: 
+          containers: 
+            - name: todo
+              image: aamantamboli/todoapp
+              resources: 
+                requests:
+                  cpu: "50m"
+                  memory: "90Mi" 
+              ports:  
+                - containerPort: 80
+                  protocol: TCP 
+  selector:
+    matchLabels:
+      app: webreplica4

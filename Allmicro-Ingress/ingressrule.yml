@@ -1,0 +1,68 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx  # Specify your ingress class if necessary
+  rules:
+  - host: ab91aad09b52e4217bdded338f1661b6-884292366.ap-south-1.elb.amazonaws.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: amazonapp
+            port:
+              number: 80
+      - path: /counter
+        pathType: Prefix
+        backend:
+          service:
+            name: counterapp
+            port:
+              number: 80
+      - path: /number
+        pathType: Prefix
+        backend:
+          service: 
+            name: numberapp
+            port:
+              number: 80
+      - path: /puppy
+        pathType: Prefix
+        backend:
+          service: 
+            name: puppyapp
+            port:
+              number: 80
+      - path: /season
+        pathType: Prefix
+        backend:
+          service: 
+            name: seasonapp
+            port:
+              number: 80
+      - path: /todo
+        pathType: Prefix
+        backend:
+          service: 
+            name: todoapp
+            port:
+              number: 80
+      - path: /traffic
+        pathType: Prefix
+        backend:
+          service: 
+            name: trafficapp
+            port:
+              number: 80
+      - path: /vr
+        pathType: Prefix
+        backend:
+          service: 
+            name: vrapp
+            port:
+              number: 80

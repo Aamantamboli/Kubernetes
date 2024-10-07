@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: counterapp
+  labels:
+    app: counterapp
+spec: 
+  replicas: 1
+  strategy: 
+    type: RollingUpdate
+  selector:  # Moved selector here
+    matchLabels:
+      app: counterapp
+  template:
+    metadata: 
+      labels:
+        app: counterapp          
+    spec: 
+      containers: 
+        - name: counter-container
+          image: aamantamboli/counter
+          resources: 
+            requests:
+              cpu: "25m"
+              memory: "50Mi"
+            limits:
+              cpu: "50m"
+              memory: "100Mi"
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP                      
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: 
+  name: counterapp
+  labels:
+    app: counterapp
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment 
+    name: amazonapp
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50

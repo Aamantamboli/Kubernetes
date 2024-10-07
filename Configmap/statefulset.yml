@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: 
+      name: stateful
+      labels: 
+          app: stateful
+spec: 
+  replicas: 2
+  template: 
+        metadata: 
+            name: dbcontainer
+            labels:
+              app: stateful
+        spec: 
+          containers: 
+            - name: mysql-container
+              image: mysql:latest
+              resources: 
+                requests:
+                  cpu: "50m"
+                  memory: "90Mi" 
+              ports:  
+                - name: dbport
+                  containerPort: 3306
+                  protocol: TCP 
+              env:
+                - name: MYSQL_ROOT_PASSWORD
+                  valueFrom:
+                          configMapKeyRef:
+                              name: myconfigmap
+                              key: DB_PASSWORD
+  selector:
+        matchLabels:
+          app: stateful
