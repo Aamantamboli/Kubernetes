@@ -6,6 +6,24 @@
 ## What is Kubernetes?
 Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.Kubernetes is an open-source platform that automates the management, deployment, and scaling of containerized applications. It's also known as "k8s" or "k-eights", which comes from counting the eight letters between the "K" and the "s" in Kubernetes. 
 
+## Kubernetes Architecture
+
+![image](https://github.com/user-attachments/assets/02a15e4b-9b5a-4931-840a-787017d797f5)
+
+Kubernetes is a powerful orchestration platform for managing containerized applications. Its architecture consists of several components that work together to ensure efficient deployment, scaling, and operation of applications. Here’s an overview of its key components:<br>
+### 1. Master Node
+The master node is responsible for managing the Kubernetes cluster. It runs several key components:<br>
+**API Server:** The entry point for all administrative tasks. It exposes the Kubernetes API, which allows users to interact with the cluster.<br>
+**Controller Manager:** Manages controllers that handle routine tasks, such as maintaining the desired state of the cluster (e.g., ensuring the number of replicas for a deployment).<br>
+**Scheduler:** Assigns newly created pods to nodes based on resource availability and constraints.<br>
+**etcd:** A distributed key-value store that stores all cluster data, including configurations and the current state of the cluster.<br>
+
+### 2. Worker Nodes
+These nodes run the actual applications in containers. Each worker node contains:<br>
+**Kubelet:** An agent that communicates with the master node and ensures that containers are running as specified in the Pod definitions.<br>
+**Kube Proxy:** Manages network communication to and from pods. It maintains network rules and helps load balance traffic to the pods.<br>
+**Container Runtime:** The software responsible for running containers. Common options include Docker, containerd, and CRI-O.<br>
+
 ## Key Features of Kubernetes
 ### 1. Container Orchestration
 Kubernetes manages clusters of containers, ensuring that the desired state of applications is maintained. It can automatically start, stop, and scale containers based on the specified requirements.
