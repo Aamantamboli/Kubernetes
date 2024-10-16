@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: myemployeeapp
+  namespace: myemployeenamespace
+  labels:
+    app: myemployeeapp
+spec: 
+  containers: 
+    - name: employee
+      image: aamantamboli/employee
+      ports:
+        - containerPort: 3000
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service3
+  namespace: myemployeenamespace
+spec:
+  type: LoadBalancer
+  selector:
+    app: myemployeeapp
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+      name: employee

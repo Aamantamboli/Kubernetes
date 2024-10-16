@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Namespace
+metadata: 
+  name: mytodonamespace
+  labels:
+    app: mytodonamespace
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: mytodoapp
+  namespace: mytodonamespace
+  labels:
+    app: mytodoapp
+spec: 
+  containers: 
+    - name: todo
+      image: aamantamboli/todoapp
+      ports:  
+        - containerPort: 80
+          protocol: TCP

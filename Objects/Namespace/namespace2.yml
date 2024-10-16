@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Namespace
+metadata: 
+  name: mystudentnamespace
+  labels:
+    app: mystudentapp
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: mystudentapp
+  namespace: mystudentnamespace
+  labels:
+    app: mystudentapp
+spec: 
+  containers: 
+    - name: student
+      image: aamantamboli/student
+      ports:
+        - containerPort: 8080
+          protocol: TCP    
