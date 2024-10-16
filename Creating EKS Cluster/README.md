@@ -1,6 +1,7 @@
-# <div align="center"> Creating-EKS-Cluster </div>
-
-![image](https://github.com/user-attachments/assets/df6ce78b-ce8f-4741-be22-abf5a66d8228)
+# <div align="center"> Creating EKS Cluster </div>
+<p align="center">
+ <img src="https://github.com/user-attachments/assets/df6ce78b-ce8f-4741-be22-abf5a66d8228" widht="200" height="180"/>
+</p>
 
 **EKS Cluster**: Amazon Elastic Kubernetes Service (Amazon EKS) is a managed service that eliminates the need to install, operate, and maintain your own Kubernetes control plane on Amazon Web Services (AWS).
 Kubernetes is an open-source system that automates the management, scaling, and deployment of containerized applications.
