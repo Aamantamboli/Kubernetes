@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+      name: todoapp
+      labels:
+        app: todoapp
+spec: 
+    replicas: 8
+    strategy: 
+        type: RollingUpdate
+        rollingUpdate:
+          maxSurge: 2   
+          maxUnavailable: 2
+    template:
+          metadata: 
+                name: todoapp 
+                labels:
+                      app: todoapp          
+          spec: 
+             containers: 
+                  - name: todo-container
+                    image: aamantamboli/todoapp:latest
+                    ports:
+                      - name: http
+                        containerPort: 80
+                        protocol: TCP                      
+    selector:
+       matchLabels:
+           app: todoapp                       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service1
+spec:
+  type: LoadBalancer
+  selector:
+    app: todoapp
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: todo
