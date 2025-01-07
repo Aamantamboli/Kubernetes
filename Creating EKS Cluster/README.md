@@ -1,90 +1,173 @@
-# <div align="center"> Creating EKS Cluster </div>
-<p align="center">
- <img src="https://github.com/user-attachments/assets/df6ce78b-ce8f-4741-be22-abf5a66d8228" widht="200" height="180"/>
-</p>
+# Creating an EKS Cluster on AWS
 
-**EKS Cluster**: Amazon Elastic Kubernetes Service (Amazon EKS) is a managed service that eliminates the need to install, operate, and maintain your own Kubernetes control plane on Amazon Web Services (AWS).
-Kubernetes is an open-source system that automates the management, scaling, and deployment of containerized applications.
+Amazon Elastic Kubernetes Service (EKS) is a managed service that simplifies the setup, operation, and scaling of Kubernetes clusters. EKS allows you to run Kubernetes workloads on AWS without the need to manage your own Kubernetes control plane.
 
-## Step 1 : Log in to your AWS account.
+This guide walks you through the steps of creating an EKS cluster, setting up node groups, and accessing the cluster using the necessary AWS tools.
 
-![image](https://github.com/user-attachments/assets/a49b0435-07bc-4549-858e-86c803898294)
+## Prerequisites
 
-## Step 2 : In the search bar, type “EKS” and press Enter.
+- An active **AWS account**.
+- IAM permissions to create and manage EKS clusters and related resources.
+- Installed **AWS CLI** and **kubectl** on your local machine.
+- Configured AWS CLI with your credentials using the command: `aws configure`.
 
-![image](https://github.com/user-attachments/assets/0f5c393b-05c5-494a-9cee-9591aae4c208)
+---
 
-## Step 3: Now Click on “Clusters”
+## Step 1: Log in to Your AWS Account
 
-![image](https://github.com/user-attachments/assets/ffeb3653-a052-43d5-85e2-53becf5e5067)
+1. Navigate to the [AWS Management Console](https://aws.amazon.com/console/).
+2. Sign in using your AWS credentials.
 
-## Step 4: Click the ‘Create cluster’ button. After clicking, you’ll see the following screen.
-Simply fill in the details according to your requirements. As an example, I’ve provided the cluster name as ‘my-eks-cluster’ and click on ‘Next’
+![image](https://github.com/user-attachments/assets/0e72b6ea-05f9-496e-aa62-2b07f46f2492)
 
-![image](https://github.com/user-attachments/assets/33145209-466a-4d29-9403-88b329388265)
+---
 
-## Step 5: After clicking the ‘Next’ button, the following screen will appear. Here, you need to select your required options such as VPC, Subnets, cluster IP address family, and cluster endpoint access according to your needs and click on ‘Next” button.
-For reference, you can take a look at the screenshot image below.”
+## Step 2: Search for "EKS"
 
-![image](https://github.com/user-attachments/assets/1649306b-7499-42da-8380-525ac557103e)
+1. In the AWS Management Console search bar, type `EKS` and press Enter.
+2. Select **Elastic Kubernetes Service (EKS)** from the results.
 
-## Step 6: After clicking the ‘Next’ button, the following screen will appear. Here, you have the option to either ignore or set up login options.
-Since I currently don’t have any specific requirements, I’m skipping this step and clicking on the ‘Next’ button. For reference, you can take a look at the screenshot image below.
+![image](https://github.com/user-attachments/assets/a64a359a-9918-42a0-9d4d-d4d4f507ad09)
 
-![image](https://github.com/user-attachments/assets/6d7dd531-4f6a-47be-9293-886207fa3bda)
+---
 
-![image](https://github.com/user-attachments/assets/26bb2b8c-7d13-4dba-b7ad-412213e65ab9)
+## Step 3: Click on "Clusters"
 
-## Step 7: After click “next” following screen will appear for “Configure selected add-ons settings” choose according to your requiremnt as of now i am setting defaults everything.
+1. From the left sidebar, select **Clusters**.
 
-![image](https://github.com/user-attachments/assets/8fff669a-ac7e-4472-a436-5587351d0ab5)
+![image](https://github.com/user-attachments/assets/65289c01-686f-4418-8ac1-bab7a1af0087)
 
-## Step 8: Now, simply click ‘Next’ and the following screen will appear for review. Check to ensure everything is correct.
-If any changes are needed, you can modify them here after selecting the desired options. For now, I’m proceeding by clicking ‘Create’.
+---
 
-![image](https://github.com/user-attachments/assets/63c72c81-5a06-4220-b5d0-5889fd16fcf9)
+## Step 4: Create a Cluster
 
-## Step 9: After clicking the ‘Create’ button, you’ll see the following screen, and it will take approximately 10 to 20 minutes to create the cluster.
+1. Click on the **Create cluster** button.
+2. Fill in the required cluster details, such as the **Cluster name**. For example, name the cluster `my-eks-cluster`.
+3. Click **Next**.
 
-![image](https://github.com/user-attachments/assets/cdfc0cd7-563b-4e8d-a7cb-8fcaad548777)
+![image](https://github.com/user-attachments/assets/5104ffcf-210d-4da2-9420-e0d247a9bf60)
 
-**Now, the second phase involves creating a node group. Please note that you cannot create the node group before creating the cluster.**
+---
 
-## Step 10: After your cluster is ready, simply click on the ‘Compute’ tab.
+## Step 5: Configure Cluster Settings
 
-![image](https://github.com/user-attachments/assets/0b8e390c-0560-4189-b5a4-f8974819376c)
+1. Choose your VPC, Subnets, Cluster IP Address Family, and Cluster Endpoint Access according to your requirements.
+2. Once you've made your selections, click **Next**.
 
-## Step 11: Now, scroll down and select the ‘Add Node Group’ option.”
+![image](https://github.com/user-attachments/assets/df83dccd-f564-4bd4-8a9e-373a8ee6c793)
 
-![image](https://github.com/user-attachments/assets/407463f2-acd9-4503-ab73-a64075456aac)
+---
 
-## Step 12: After selecting the ‘Node Group’ the following screen will appear. Here, you should provide a name for the node group and specify the Node IAM policy.
-I’ve already provided the name as ‘my-node-group’ and the IAM policy as ‘my-eks-node-group-policy’ After completing this step, simply click on the ‘Next’ button
+## Step 6: Set Up Logging Options
 
-![image](https://github.com/user-attachments/assets/6ca873bd-160c-49dd-8601-43767114de92)
+1. This step allows you to configure the login options. You can either skip this step or configure it based on your requirements.
+2. Once done, click **Next**.
 
-## Step 13: After clicking ‘Next’ the following screen will appear, and you should choose the options according to your requirements. I’ve already made selections, as shown in the image below, for your reference.
+![image](https://github.com/user-attachments/assets/135e461a-94a3-4d05-a335-1964d9b79b4a)
+![image](https://github.com/user-attachments/assets/3dfa1cde-d2f2-4bc7-8f01-f255a1bd11b4)
 
-![image](https://github.com/user-attachments/assets/9bc85c0d-9896-4ab6-bbc9-a01281549131)
+---
 
-## Step 14: Now click on “Next” following screen will appear.
+## Step 7: Configure Add-Ons
 
-![image](https://github.com/user-attachments/assets/365747d2-dece-4bbb-9a59-1a9ecd7395d6)
+1. In the **Configure selected add-ons settings** section, set up any necessary add-ons as per your requirements. For now, you can proceed with the default settings.
+2. Click **Next**.
 
-## Step 15: Now, click ‘Next’ It will display a review interface. If there’s anything you’d like to change, you can make adjustments.
-If you’re satisfied with the settings, click the ‘Create’ button to proceed and create the node group. For reference, you can view a snapshot of the review screen below
+![image](https://github.com/user-attachments/assets/9ce7bb05-768f-4500-aa30-20bae38b3bd9)
 
-![image](https://github.com/user-attachments/assets/7462badf-290e-4ca6-9faf-5fee8757bd51)
+---
 
-Simply click ‘Create,’ and you’re all set. The node group will take a few minutes to become operational. Once it’s up and running, you’re ready to use it.
-You’ve successfully created the cluster and node group. Now, if you’re wondering how to access your EKS cluster, don’t worry; it’s quite straightforward.
+## Step 8: Review Cluster Configuration
 
-## Steps:
-1.Open Your Terminal: If you’re using macOS or Linux, open your terminal. If you’re a Windows user, open your command prompt (CMD).<br>
-2.Install Necessary Tools: Install the necessary tools such as AWS CLI and kubectl.<br>
-3.Configure AWS: Configure your AWS credentials.<br>
-4.After Configuring AWS Credentials: Once you’ve configured your AWS credentials, proceed with the following command.<br>
+1. Review your cluster configuration to ensure everything is set up as needed.
+2. If everything looks good, click **Create** to proceed.
 
-```
-aws eks update-kubeconfig --name <my-eks-cluster-name>
-```
+![image](https://github.com/user-attachments/assets/e373bfad-4012-46d5-a38c-254dc65c051e)
+
+---
+
+## Step 9: Wait for Cluster Creation
+
+1. After clicking **Create**, it will take approximately **10 to 20 minutes** to create your cluster.
+2. Once the cluster is created, you’ll see a confirmation message.
+
+![image](https://github.com/user-attachments/assets/9752d1cc-0bbd-49eb-bf5e-bc64e93c84c9)
+
+---
+
+## Step 10: Create a Node Group
+
+1. After your cluster is created, go to the **Compute** tab.
+2. Click **Add Node Group** to start creating the node group for your EKS cluster.
+
+![image](https://github.com/user-attachments/assets/ad432c73-c312-4fb3-ab88-f1ca8818a3c6)
+
+---
+
+## Step 11: Configure Node Group
+
+1. Under **Node Group details**, provide a name for your node group (e.g., `my-node-group`).
+2. Choose the **Node IAM policy** for your group (e.g., `my-eks-node-group-policy`).
+3. Click **Next**.
+
+![image](https://github.com/user-attachments/assets/116ce2c8-8ff7-41b4-8579-24d65496504d)
+
+---
+
+## Step 12: Choose Node Group Options
+
+1. On the next screen, select the desired configuration for your node group, such as instance types, desired node count, and scaling options.
+2. After making your selections, click **Next**.
+
+![image](https://github.com/user-attachments/assets/a191bd66-ef74-4e29-b66d-48719e3ce757)
+
+---
+
+## Step 13: Review Node Group Configuration
+
+1. Review the node group settings and ensure everything is correct.
+2. If satisfied, click **Create** to create the node group.
+
+![image](https://github.com/user-attachments/assets/9b1318c5-d1f3-4193-8bbb-47159978b65a)
+
+---
+
+## Step 14: Wait for Node Group Creation
+
+1. The node group will take a few minutes to become operational.
+2. Once the node group is ready, you’ll see the status change to **Active**.
+
+---
+
+## Step 15: Access Your EKS Cluster
+
+1. **Open your terminal**:
+   - On **macOS/Linux**, open your terminal.
+   - On **Windows**, open **Command Prompt** or **PowerShell**.
+
+2. **Install the necessary tools**:
+   - Ensure you have **AWS CLI** and **kubectl** installed.
+   - If not, install them using the official AWS and Kubernetes documentation.
+
+3. **Configure your AWS credentials** using the command:
+   ```bash
+   aws configure
+   ```
+
+4. **Update your kubeconfig** for your EKS cluster:
+   ```bash
+   aws eks update-kubeconfig --name my-eks-cluster
+   ```
+
+5. Now you can use `kubectl` to interact with your cluster. Verify your connection by running:
+   ```bash
+   kubectl get svc
+   ```
+
+---
+
+## Conclusion
+
+You’ve successfully created an EKS cluster and node group. You can now deploy and manage your containerized applications on Kubernetes using Amazon EKS.
+
+For further resources and documentation, visit the [AWS EKS Documentation](https://docs.aws.amazon.com/eks/latest/userguide/).
